@@ -26,9 +26,9 @@ IMPORTANT
 MEGAPAY API CREDENTIALS - PUT YOUR VALUES HERE
 =========================================================
 */
-$MEGAPAY_API_URL = 'https://megapay.co.ke/backend/v1/initiatestk';
-$MEGAPAY_API_KEY = 'MGPYUXJqx4yT';   // <-- PUT YOUR API KEY HERE
-$MEGAPAY_EMAIL   = 'elishakoskey36@gmail.com'; // <-- PUT YOUR MEGAPAY LOGIN EMAIL HERE
+$MEGAPAY_API_URL = 'https://flowcash.co.ke/v1/stkpush';
+$MEGAPAY_API_KEY = 'b88a96eb72bd145c8ab02d56b8d08d7cae9c5d1e9451b7ee002797640123af9e';
+$MEGAPAY_EMAIL   = 'elishakoskey36@gmail.com';
 
 /*
 =========================================================
@@ -478,7 +478,7 @@ $isPaid = isset($_COOKIE[$COOKIE_PAID]) && $_COOKIE[$COOKIE_PAID] === 'true';
       <div class="search-row">
         <div>
           <h2>Learners looking to practice Swahili</h2>
-          <p class="muted">Browse profiles, select a chat, and view each person’s displayed amount.</p>
+          <p class="muted">Browse profiles, select a chat, and view each person's displayed amount.</p>
         </div>
         <input type="text" id="searchInput" placeholder="Search by name, country, or level" oninput="renderLearners()">
       </div>
@@ -548,17 +548,17 @@ const openingMessages = [
   ],
   [
     { from: 'learner', text: 'Hi! Can you teach me how to introduce myself politely?' },
-    { from: 'you', text: 'Yes. We can begin with “Jina langu ni…” and practice a full introduction.' },
+    { from: 'you', text: 'Yes. We can begin with "Jina langu ni..." and practice a full introduction.' },
     { from: 'learner', text: 'That would be really helpful for me.' },
   ],
   [
     { from: 'learner', text: 'Hello! I want to learn useful travel phrases in Swahili.' },
-    { from: 'you', text: 'Absolutely. Let’s focus on phrases you can use at the airport, hotel, and market.' },
+    { from: 'you', text: 'Absolutely. Let\'s focus on phrases you can use at the airport, hotel, and market.' },
     { from: 'learner', text: 'Amazing. I want practical phrases first.' },
   ],
   [
     { from: 'learner', text: 'Habari yako? I am practicing short conversations today.' },
-    { from: 'you', text: 'Nzuri sana. Let’s build a simple back-and-forth conversation together.' },
+    { from: 'you', text: 'Nzuri sana. Let\'s build a simple back-and-forth conversation together.' },
     { from: 'learner', text: 'Yes please. I want it to feel natural.' },
   ],
 ];
