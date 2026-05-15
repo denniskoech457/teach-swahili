@@ -3,32 +3,18 @@ session_start();
 
 /*
 =========================================================
-SWAHILI CONNECT - SINGLE FILE PHP + HTML + JAVASCRIPT DEMO
-=========================================================
-
-WHAT THIS FILE DOES
-- Sign up
-- Sign in
-- Require login before homepage
-- Show learners from Europe and USA only
-- Require KES 100 MegaPay payment before chat unlock
-- Use PHP session for login state
-- Use cookies for quick demo user storage
-- Use PHP endpoint in this same file for MegaPay STK Push
-
-IMPORTANT
-- This is a prototype/starter.
-- Storing users in cookies is NOT secure for production.
-- For real deployment, move users/payments/messages into MySQL.
-- Add real payment verification/callback before permanent unlock.
-
-=========================================================
-MEGAPAY API CREDENTIALS - PUT YOUR VALUES HERE
+SWAHILI CONNECT - FLOWCASH VERSION
 =========================================================
 */
-$MEGAPAY_API_URL = 'https://megapay.co.ke/backend/v1/initiatestk';
-$MEGAPAY_API_KEY = 'MGPYUXJqx4yT';   // <-- PUT YOUR API KEY HERE
-$MEGAPAY_EMAIL   = 'elishakoskey36@gmail.com'; // <-- PUT YOUR MEGAPAY LOGIN EMAIL HERE
+
+/*
+=========================================================
+FLOWCASH API CREDENTIALS
+=========================================================
+*/
+$FLOWCASH_API_URL = 'https://flowcash.co.ke/v1/stkpush';
+$FLOWCASH_API_KEY = 'b88a96eb72bd145c8ab02d56b8d08d7cae9c5d1e9451b7ee002797640123af9e';
+$FLOWCASH_EMAIL   = 'elishakoskey36@gmail.com';
 
 /*
 =========================================================
@@ -149,8 +135,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'logout') {
 
 /*
 =========================================================
-AJAX: INITIATE MEGAPAY PAYMENT
-PUT YOUR API KEY + EMAIL ABOVE
+AJAX: INITIATE FLOWCASH PAYMENT
 =========================================================
 */
 if (isset($_POST['action']) && $_POST['action'] === 'initiate_payment') {
@@ -166,19 +151,19 @@ if (isset($_POST['action']) && $_POST['action'] === 'initiate_payment') {
         jsonResponse(['success' => false, 'message' => 'Phone number is required.'], 400);
     }
 
-    if ($MEGAPAY_API_KEY === 'PUT_YOUR_MEGAPAY_API_KEY_HERE' || $MEGAPAY_EMAIL === 'PUT_YOUR_MEGAPAY_LOGIN_EMAIL_HERE') {
-        jsonResponse(['success' => false, 'message' => 'Please add your MegaPay API key and MegaPay email in the PHP config section.'], 500);
+    if ($FLOWCASH_API_KEY === 'PUT_YOUR_FLOWCASH_API_KEY_HERE' || $FLOWCASH_EMAIL === 'PUT_YOUR_FLOWCASH_LOGIN_EMAIL_HERE') {
+        jsonResponse(['success' => false, 'message' => 'Please add your FlowCash API key and FlowCash email in the PHP config section.'], 500);
     }
 
     $payload = json_encode([
-        'api_key' => $MEGAPAY_API_KEY,
-        'email' => $MEGAPAY_EMAIL,
+        'api_key' => $FLOWCASH_API_KEY,
+        'email' => $FLOWCASH_EMAIL,
         'amount' => $amount,
         'msisdn' => $msisdn,
         'reference' => $reference,
     ]);
 
-    $ch = curl_init($MEGAPAY_API_URL);
+    $ch = curl_init($FLOWCASH_API_URL);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
@@ -212,7 +197,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'initiate_payment') {
 
     jsonResponse([
         'success' => false,
-        'message' => $decoded['message'] ?? 'MegaPay request failed.',
+        'message' => $decoded['message'] ?? 'FlowCash request failed.',
         'provider_response' => $decoded
     ], 400);
 }
@@ -478,7 +463,7 @@ $isPaid = isset($_COOKIE[$COOKIE_PAID]) && $_COOKIE[$COOKIE_PAID] === 'true';
       <div class="search-row">
         <div>
           <h2>Learners looking to practice Swahili</h2>
-          <p class="muted">Browse profiles, select a chat, and view each person’s displayed amount.</p>
+          <p class="muted">Browse profiles, select a chat, and view each person's displayed amount.</p>
         </div>
         <input type="text" id="searchInput" placeholder="Search by name, country, or level" oninput="renderLearners()">
       </div>
@@ -548,17 +533,17 @@ const openingMessages = [
   ],
   [
     { from: 'learner', text: 'Hi! Can you teach me how to introduce myself politely?' },
-    { from: 'you', text: 'Yes. We can begin with “Jina langu ni…” and practice a full introduction.' },
+    { from: 'you', text: 'Yes. We can begin with "Jina langu ni..." and practice a full introduction.' },
     { from: 'learner', text: 'That would be really helpful for me.' },
   ],
   [
     { from: 'learner', text: 'Hello! I want to learn useful travel phrases in Swahili.' },
-    { from: 'you', text: 'Absolutely. Let’s focus on phrases you can use at the airport, hotel, and market.' },
+    { from: 'you', text: 'Absolutely. Let's focus on phrases you can use at the airport, hotel, and market.' },
     { from: 'learner', text: 'Amazing. I want practical phrases first.' },
   ],
   [
     { from: 'learner', text: 'Habari yako? I am practicing short conversations today.' },
-    { from: 'you', text: 'Nzuri sana. Let’s build a simple back-and-forth conversation together.' },
+    { from: 'you', text: 'Nzuri sana. Let's build a simple back-and-forth conversation together.' },
     { from: 'learner', text: 'Yes please. I want it to feel natural.' },
   ],
 ];
