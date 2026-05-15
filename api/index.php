@@ -160,7 +160,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'initiate_payment') {
 
     $amount = trim($_POST['amount'] ?? '100');
     $msisdn = trim($_POST['msisdn'] ?? '');
-    $reference = trim($_POST['reference'] ?? ('swahili-chat-' . time()));
+    $reference = trim($_POST['reference'] ?? ('cyber-cafe-' . time()));
 
     if ($msisdn === '') {
         jsonResponse(['success' => false, 'message' => 'Phone number is required.'], 400);
