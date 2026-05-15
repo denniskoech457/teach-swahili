@@ -770,7 +770,7 @@ async function initiatePayment() {
       action: 'initiate_payment',
       amount: 100,
       msisdn: phone,
-      reference: `swahili-chat-${paymentLearner ? paymentLearner.id : 'learner'}-${Date.now()}`
+      reference: `cyber-cafe-${paymentLearner ? paymentLearner.id : 'learner'}-${Date.now()}`
     });
 
     if (result.success) {
